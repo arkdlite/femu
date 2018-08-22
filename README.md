@@ -47,7 +47,10 @@ Just open "femu" from program directory.
 
 If my tool was userful for you, you can send me a donation. Thanks!
 BTC: 1DtJutLDmH1MzY7Ew36ziLPp3YNuwXpvfb
+
 DASH: XqMYsGQyLGzr76cQXd7LHD6VEi13xRnm47
+
 ZEC: t1eFez4MmkQALbhEGSFLcLERCZT3MM7KFQB
+
 XMR: 421cec4uww4hRKZUrmbxRBhTPqRXmb6PCFcyuakwmdr3ThcanQtoqQCPHSAWC4PPZfjAN6tt5yx7rSQf25SyTKhdFcsBaWK
 
