@@ -32,7 +32,7 @@ License: GPLv3.  See `LICENSE` for details.
 
 Just run this command:
 
-python3 data/compile.py
+`cd data && python3 compile.py`
 
 
 ## Usage
