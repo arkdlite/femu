@@ -44,10 +44,10 @@ Just open "femu" from program directory.
 
 ## Screenshots
 
-![](https://s8.hostingkartinok.com/uploads/images/2018/08/d4e12f48d288bb429cca769693035c03.jpg)
-![](https://s8.hostingkartinok.com/uploads/images/2018/08/f5e08a869db7c5d27babaca8594d1817.jpg)
-![](https://s8.hostingkartinok.com/uploads/images/2018/08/8c722fc705fecd1d88e81f2474d67684.jpg)
-![](https://s8.hostingkartinok.com/uploads/images/2018/08/c90262553b3adcf09b9cc96d57783c10.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/7e80ac8a019e81baf596f6c385eb54e5.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/84edb8ab67b46112fa995cc1bc1c8f8f.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/0d25b713221fd66874c7c5924e0cfe17.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/7d1b2f547e6349df3e6a5cf291c2a457.jpg)
 
 ## Donations
 
