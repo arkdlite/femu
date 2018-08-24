@@ -12,8 +12,6 @@ Now it supports only Ubuntu 18.04.
 
 **releases**: https://github.com/arkdlite/femu/releases
 
-**git tree**: https://github.com/arkdlite/femu/releases
-
 **bugtracker**: https://github.com/arkdlite/femu/issues
 
 
