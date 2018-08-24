@@ -29,6 +29,7 @@ License: GPLv3.  See `LICENSE` for details.
 * [Python 3.6](https://python.org/) - `python3` on Ubuntu 18.04
 * [Cython](http://cython.org/) `cython3` on Ubuntu 18.04
 * [lxqt-sudo](https://github.com/lxqt/lxqt-sudo) `lxqt-sudo` on Ubuntu 18.04
+* [PyGobject](https://pygobject.readthedocs.io/en/latest)
 
 ### Build process
 
