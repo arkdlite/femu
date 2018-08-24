@@ -47,7 +47,7 @@ Just open "femu" from program directory.
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/7e80ac8a019e81baf596f6c385eb54e5.jpg)
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/84edb8ab67b46112fa995cc1bc1c8f8f.jpg)
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/0d25b713221fd66874c7c5924e0cfe17.jpg)
-![](https://s8.hostingkartinok.com/uploads/images/2018/08/7d1b2f547e6349df3e6a5cf291c2a457.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/226b31cd6b9e8a1ca1fe7bc996eb37ab.jpg)
 
 ## Donations
 
