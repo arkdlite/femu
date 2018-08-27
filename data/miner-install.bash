@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $1 = "--step1" ]; then
 cd $2
-rm -R miners
+rm -Rf miners
 mkdir miners
 fi
 
@@ -14,16 +14,16 @@ cd ethminer
 mkdir build
 mkdir build/ethminer
 cp ethminer build/ethminer
-cp -R kernels build/ethminer
+cp -Rf kernels build/ethminer
 fi
 
 if [ $1 = "--ethminer-build" ]; then
 touch /var/log/CLRX-build.log
 touch /var/log/ethminer-build.log
 cd $2
-add-apt-repository ppa:ubuntu-toolchain-r/test
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt update
-apt upgrade
+apt -y upgrade
 apt install gcc-snapshot gcc-8 g++-8 make build-essential git mesa-common-dev cmake freeglut3 freeglut3-dev libpng-dev gcc-5 g++-5 -y
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 git clone https://github.com/ethereum-mining/ethminer.git
@@ -64,9 +64,9 @@ cmake --build . > /var/log/ethminer-build.log
 fi
 
 if [ $1 = "--step1xmr" ]; then
-add-apt-repository ppa:ubuntu-toolchain-r/test
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt update
-apt upgrade
+apt -y upgrade
 apt install git build-essential make cmake libuv1-dev gcc-snapshot gcc-8 g++-8 libmicrohttpd-dev opencl-c-headers -y
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 fi
