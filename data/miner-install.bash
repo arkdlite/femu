@@ -1,7 +1,7 @@
 #!/bin/bash
 if [ $1 = "--step1" ]; then
 cd $2
-rm -R miners
+rm -Rf miners
 mkdir miners
 fi
 
@@ -14,25 +14,25 @@ cd ethminer
 mkdir build
 mkdir build/ethminer
 cp ethminer build/ethminer
-cp -R kernels build/ethminer
+cp -Rf kernels build/ethminer
 fi
 
 if [ $1 = "--ethminer-build" ]; then
-touch /var/log/CLRX-build.log
-touch /var/log/ethminer-build.log
+touch /var/log/femu-CLRX-build.log
+touch /var/log/femu-ethminer-build.log
 cd $2
-add-apt-repository ppa:ubuntu-toolchain-r/test
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt update
-apt upgrade
+apt -y upgrade
 apt install gcc-snapshot gcc-8 g++-8 make build-essential git mesa-common-dev cmake freeglut3 freeglut3-dev libpng-dev gcc-5 g++-5 -y
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-git clone https://github.com/ethereum-mining/ethminer.git
-git clone https://github.com/CLRX/CLRX-mirror
+git clone --depth=1 https://github.com/ethereum-mining/ethminer.git
+git clone --depth=1 https://github.com/CLRX/CLRX-mirror
 cd CLRX-mirror
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/CLRX-build.log
-make -j$(nproc) > /var/log/ethminer-build.log
+cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/femu-CLRX-build.log 2>&1
+make -j$(nproc) >> /var/log/femu-CLRX-build.log 2>&1
 make install
 cd $2
 cd ethminer
@@ -59,21 +59,21 @@ clrxasm -o ethash_tonga_lws192.bin --defsym=worksize='192' -g 'tonga' -b 'amdcl2
 clrxasm -o ethash_tonga_lws256.bin --defsym=worksize='256' -g 'tonga' -b 'amdcl2' -A 'gcn1.1' GCN_ethash.isa
 cp ethash_*.bin $2/ethminer/libethash-cl/kernels/bin
 cd $2/ethminer/build
-cmake .. -DETHASHCUDA=OFF > /var/log/ethminer-build.log
-cmake --build . > /var/log/ethminer-build.log
+cmake .. -DETHASHCUDA=OFF > /var/log/femu-ethminer-build.log 2>&1
+cmake --build . >> /var/log/femu-ethminer-build.log 2>&1
 fi
 
 if [ $1 = "--step1xmr" ]; then
-add-apt-repository ppa:ubuntu-toolchain-r/test
+add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt update
-apt upgrade
+apt -y upgrade
 apt install git build-essential make cmake libuv1-dev gcc-snapshot gcc-8 g++-8 libmicrohttpd-dev opencl-c-headers -y
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
 fi
 
 if [ $1 = "--step2xmr" ]; then
 cd $2
-git clone https://github.com/xmrig/xmrig-amd.git
+git clone --depth=1 https://github.com/xmrig/xmrig-amd.git
 cd xmrig-amd
 mkdir build
 fi
@@ -87,12 +87,12 @@ fi
 if [ $1 = "--step3xmr" ]; then
 touch /var/log/xmrig-amd-build.log
 cd $2/xmrig-amd/build
-cmake .. -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so -DOpenCL_INCLUDE_DIR=/opt/amdgpu-pro/lib/x86_64-linux-gnu > /var/log/xmrig-amd-build.log
+cmake .. -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so -DOpenCL_INCLUDE_DIR=/opt/amdgpu-pro/lib/x86_64-linux-gnu > /var/log/xmrig-amd-build.log 2>&1
 fi
 
 if [ $1 = "--step4xmr" ]; then
 cd $2/miners/xmrig-amd/build
-make -j$(nproc) > /var/log/xmrig-amd-build.log
+make -j$(nproc) >> /var/log/xmrig-amd-build.log 2>&1
 cp $2/miners/xmrig-amd/build/xmrig-amd $2/miners/xmrig-amd
 fi
 

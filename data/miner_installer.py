@@ -26,6 +26,9 @@ progr = 0.0 # variable for progressbar percentage
 progrtext = "" # variable for progressbar text
 dialrun = False # variable for dialog running
 
+def runcmd(cmd):
+	os.system(cmd + " >> /var/log/femu.log 2>&1")
+
 class ProgressThread(Thread): # class for scripts running
 	def run(self):
 		# all global variables
@@ -34,7 +37,7 @@ class ProgressThread(Thread): # class for scripts running
 		progr = 0.01 # progress to 1%
 		progrtext = "Loading" # установка текста прогрессбара
 		work = director + "/miner-install.bash --step1 " + desktop 
-		os.system(work) # launching script with directory
+		runcmd(work) # launching script with directory
 		progrtext = "Unpacking"
 		progr = 0.05
 		progrtext = "Running the install script"
@@ -45,19 +48,19 @@ class ProgressThread(Thread): # class for scripts running
 				ssl = "tcp"
 			if ethminerbuild == True: # running script for optimized build 
 				work = director + "/miner-install.bash --ethminer-build " + desktop + "/miners"
-				os.system(work)
+				runcmd(work)
 				progr = 0.5
 				progrtext = "Building target Ethminer"
 				work = director + "/miner-install.bash --ethminer-build2 " + desktop + "/miners"
-				os.system(work)
+				runcmd(work)
 				progr = 0.99
 			else: # default download a release from GitHub
 				work = director + "/miner-install.bash --ethminer-bin " + desktop + "/miners"
-				os.system(work)
+				runcmd(work)
 				progr = 0.99
 			# making a file for start script
 			work = director + "/miner-install.bash --step2 " + desktop + "/ethminer.bash"
-			os.system(work)
+			runcmd(work)
 			# determining the type of graphics cards for Ethminer
 			if nvidia == True and amd == False:
 				mode = "-U"
@@ -67,46 +70,46 @@ class ProgressThread(Thread): # class for scripts running
 				mode = "-G"
 			# making start script
 			work = "echo '#!/bin/bash' > %s" % desktop + "/ethminer.bash"
-			os.system(work)
+			runcmd(work)
 			work = "echo '.~/miners/ethminer/build/ethminer/ethminer --farm-recheck 200 --tstart 45 %s -P %s+%s://%s@%s' >> %s" % (mode, stratumtype, ssl, ewallet, epool1, desktop + "/ethminer.bash")
-			os.system(work)
+			runcmd(work)
 			progr = 1.0
 
 		if xmrig == True: # if XMRig-AMD activated
 			progr = 0.01
 			progrtext = "Installing dependencies and system updates"
 			work = director + "/miner-install.bash --step1xmr " + desktop + "/miners"
-			os.system(work)
+			runcmd(work)
 			progr = 0.1
 			progrtext = "XMRig miner downloading"
 			work = director + "/miner-install.bash --step2xmr " + desktop + "/miners"
-			os.system(work)
+			runcmd(work)
 			progr = 0.15
 			if devfeeoff == True: # devfee off
 				progrtext = "Devfee off"
 				work = director + "/miner-install.bash --devfeeoff " + desktop + "/miners"
-				os.system(work)
+				runcmd(work)
 				progr = 0.16
 			progrtext = "Preparating XMRig build"
 			work = director + "/miner-install.bash --step3xmr " + desktop + "/miners"
-			os.system(work)
+			runcmd(work)
 			progr = 0.3
 			progrtext = "Build target XMRig"
 			work = director + "/miner-install.bash --step4xmr " + desktop
-			os.system(work)
+			runcmd(work)
 			progr = 0.97
 			progrtext = "Сonfiguring XMRig"
 			work = "echo '#!/bin/bash' > %s" % desktop + "/xmrig-amd.bash" # making start script
-			os.system(work)	
+			runcmd(work)
 			if devfeeoff == True:
 				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 0 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
 			else:
 				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 1 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
-			os.system(work)
+			runcmd(work)
 			work = "chmod 777 " + desktop + "/xmrig-amd.bash"
-			os.system(work)
+			runcmd(work)
 			work = "chmod ugo+x " + desktop + "/xmrig-amd.bash"
-			os.system(work)
+			runcmd(work)
 			progr = 1.0
 		# dialog for finish installation
 		errorhead = "Success!"
