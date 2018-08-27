@@ -13,4 +13,3 @@ touch /var/log/amdgpu-pro.log
 ./amdgpu-install -y --opencl=pal,legacy > /var/log/amdgpu-pro.log
 cd
 fi
-
