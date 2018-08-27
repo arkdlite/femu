@@ -26,8 +26,8 @@ apt update
 apt -y upgrade
 apt install gcc-snapshot gcc-8 g++-8 make build-essential git mesa-common-dev cmake freeglut3 freeglut3-dev libpng-dev gcc-5 g++-5 -y
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
-git clone https://github.com/ethereum-mining/ethminer.git
-git clone https://github.com/CLRX/CLRX-mirror
+git clone --depth=1 https://github.com/ethereum-mining/ethminer.git
+git clone --depth=1 https://github.com/CLRX/CLRX-mirror
 cd CLRX-mirror
 mkdir build
 cd build
@@ -73,7 +73,7 @@ fi
 
 if [ $1 = "--step2xmr" ]; then
 cd $2
-git clone https://github.com/xmrig/xmrig-amd.git
+git clone --depth=1 https://github.com/xmrig/xmrig-amd.git
 cd xmrig-amd
 mkdir build
 fi
