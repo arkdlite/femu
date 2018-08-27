@@ -31,8 +31,8 @@ git clone https://github.com/CLRX/CLRX-mirror
 cd CLRX-mirror
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/CLRX-build.log
-make -j$(nproc) > /var/log/ethminer-build.log
+cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/CLRX-build.log 2>&1
+make -j$(nproc) >> /var/log/CLRX-build.log 2>&1
 make install
 cd $2
 cd ethminer
@@ -59,8 +59,8 @@ clrxasm -o ethash_tonga_lws192.bin --defsym=worksize='192' -g 'tonga' -b 'amdcl2
 clrxasm -o ethash_tonga_lws256.bin --defsym=worksize='256' -g 'tonga' -b 'amdcl2' -A 'gcn1.1' GCN_ethash.isa
 cp ethash_*.bin $2/ethminer/libethash-cl/kernels/bin
 cd $2/ethminer/build
-cmake .. -DETHASHCUDA=OFF > /var/log/ethminer-build.log
-cmake --build . > /var/log/ethminer-build.log
+cmake .. -DETHASHCUDA=OFF > /var/log/ethminer-build.log 2>&1
+cmake --build . >> /var/log/ethminer-build.log 2>&1
 fi
 
 if [ $1 = "--step1xmr" ]; then
@@ -87,12 +87,12 @@ fi
 if [ $1 = "--step3xmr" ]; then
 touch /var/log/xmrig-amd-build.log
 cd $2/xmrig-amd/build
-cmake .. -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so -DOpenCL_INCLUDE_DIR=/opt/amdgpu-pro/lib/x86_64-linux-gnu > /var/log/xmrig-amd-build.log
+cmake .. -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so -DOpenCL_INCLUDE_DIR=/opt/amdgpu-pro/lib/x86_64-linux-gnu > /var/log/xmrig-amd-build.log 2>&1
 fi
 
 if [ $1 = "--step4xmr" ]; then
 cd $2/miners/xmrig-amd/build
-make -j$(nproc) > /var/log/xmrig-amd-build.log
+make -j$(nproc) >> /var/log/xmrig-amd-build.log 2>&1
 cp $2/miners/xmrig-amd/build/xmrig-amd $2/miners/xmrig-amd
 fi
 

@@ -10,6 +10,6 @@ fi
 if [ $1 = "--step3" ]; then
 cd /tmp/amdgpu-pro-18.30-633530
 touch /var/log/amdgpu-pro.log
-./amdgpu-install -y --opencl=pal,legacy > /var/log/amdgpu-pro.log
+./amdgpu-install -y --opencl=pal,legacy > /var/log/amdgpu-pro.log 2>&1
 cd
 fi
