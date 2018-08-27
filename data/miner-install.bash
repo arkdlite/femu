@@ -18,8 +18,8 @@ cp -Rf kernels build/ethminer
 fi
 
 if [ $1 = "--ethminer-build" ]; then
-touch /var/log/CLRX-build.log
-touch /var/log/ethminer-build.log
+touch /var/log/femu-CLRX-build.log
+touch /var/log/femu-ethminer-build.log
 cd $2
 add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt update
@@ -31,8 +31,8 @@ git clone --depth=1 https://github.com/CLRX/CLRX-mirror
 cd CLRX-mirror
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/CLRX-build.log 2>&1
-make -j$(nproc) >> /var/log/CLRX-build.log 2>&1
+cmake .. -DCMAKE_BUILD_TYPE=Release -DOPENCL_LIBRARY=/opt/amdgpu-pro/lib/x86_64-linux-gnu/libOpenCL.so > /var/log/femu-CLRX-build.log 2>&1
+make -j$(nproc) >> /var/log/femu-CLRX-build.log 2>&1
 make install
 cd $2
 cd ethminer
@@ -59,8 +59,8 @@ clrxasm -o ethash_tonga_lws192.bin --defsym=worksize='192' -g 'tonga' -b 'amdcl2
 clrxasm -o ethash_tonga_lws256.bin --defsym=worksize='256' -g 'tonga' -b 'amdcl2' -A 'gcn1.1' GCN_ethash.isa
 cp ethash_*.bin $2/ethminer/libethash-cl/kernels/bin
 cd $2/ethminer/build
-cmake .. -DETHASHCUDA=OFF > /var/log/ethminer-build.log 2>&1
-cmake --build . >> /var/log/ethminer-build.log 2>&1
+cmake .. -DETHASHCUDA=OFF > /var/log/femu-ethminer-build.log 2>&1
+cmake --build . >> /var/log/femu-ethminer-build.log 2>&1
 fi
 
 if [ $1 = "--step1xmr" ]; then
