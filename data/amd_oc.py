@@ -135,7 +135,7 @@ def Dialog(dialhead, dialtext, button=True):
 	
 class MainWindow(Gtk.Window):
 	def __init__(self):
-		global gpus, currentgpu
+		global gpus, selectedgpu
 		Gtk.Window.__init__(self, title="FEMU's AMD OC Tool (OhGodATool GUI)")
 		#self.set_default_size(300, 200)
 		
