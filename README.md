@@ -5,7 +5,7 @@
 
 FEMU - Free & Easy Mining on Ubuntu is a graphical tool which can be used for
 configuring Ubuntu for cryptocurrency mining. Mining on Ubuntu is very easy:
-just open this program and install software/
+just open this program and install software.
 In this repo you can download FEMU version with Russian localisation.
 Now it supports only Ubuntu 18.04.
 
@@ -48,6 +48,7 @@ Just open "femu" from program directory.
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/84edb8ab67b46112fa995cc1bc1c8f8f.jpg)
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/0d25b713221fd66874c7c5924e0cfe17.jpg)
 ![](https://s8.hostingkartinok.com/uploads/images/2018/08/226b31cd6b9e8a1ca1fe7bc996eb37ab.jpg)
+![](https://s8.hostingkartinok.com/uploads/images/2018/08/fe68dc95b4ad7d0e14b775127180a022.jpg)
 
 ## Donations
 
