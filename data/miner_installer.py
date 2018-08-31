@@ -71,8 +71,24 @@ class ProgressThread(Thread): # class for scripts running
 			# making start script
 			work = "echo '#!/bin/bash' > %s" % desktop + "/ethminer.bash"
 			runcmd(work)
-			work = "echo '.~/miners/ethminer/build/ethminer/ethminer --farm-recheck 200 --tstart 45 %s -P %s+%s://%s@%s' >> %s" % (mode, stratumtype, ssl, ewallet, epool1, desktop + "/ethminer.bash")
+			work = "echo '%s/miners/ethminer/build/ethminer/ethminer --farm-recheck 200 --tstart 45 %s -P %s+%s://%s@%s' >> %s" % (desktop, mode, stratumtype, ssl, ewallet, epool1, desktop + "/ethminer.bash")
 			runcmd(work)
+			
+			with open ('ethminer', 'r') as f:
+				old_data = f.read()
+			new_data = old_data.replace('$APPLICATION_PATH=""', '$APPLICATION_PATH="' + desktop + '"')
+			with open ('ethminer', 'w') as f:
+				f.write(new_data)
+			
+			work = 'cp ethminer /etc/init.d'
+			runcmd(work)
+			work = 'chmod +x /etc/init.d/ethminer'
+			runcmd(work)
+			work = 'update-rc.d ethminer defaults'
+			runcmd(work)
+			work = 'update-rc.d ethminer enable'
+			runcmd(work)
+			
 			progr = 1.0
 
 		if xmrig == True: # if XMRig-AMD activated
@@ -102,18 +118,34 @@ class ProgressThread(Thread): # class for scripts running
 			work = "echo '#!/bin/bash' > %s" % desktop + "/xmrig-amd.bash" # making start script
 			runcmd(work)
 			if devfeeoff == True:
-				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 0 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
+				work = "echo '%s/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 0 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (desktop, algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
 			else:
-				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 1 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
+				work = "echo '%s/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 1 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (desktop, algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
 			runcmd(work)
 			work = "chmod 777 " + desktop + "/xmrig-amd.bash"
 			runcmd(work)
 			work = "chmod ugo+x " + desktop + "/xmrig-amd.bash"
 			runcmd(work)
+			
+			with open ('xmrig', 'r') as f:
+				old_data = f.read()
+			new_data = old_data.replace('$APPLICATION_PATH=""', '$APPLICATION_PATH="' + desktop + '"')
+			with open ('xmrig', 'w') as f:
+				f.write(new_data)
+			
+			work = 'cp xmrig /etc/init.d'
+			runcmd(work)
+			work = 'chmod +x /etc/init.d/xmrig'
+			runcmd(work)
+			work = 'update-rc.d xmrig defaults'
+			runcmd(work)
+			work = 'update-rc.d xmrig enable'
+			runcmd(work)			
+			
 			progr = 1.0
 		# dialog for finish installation
 		errorhead = "Success!"
-		errortext = "Software for mining has been installed.\nGood luck!\nPress 'OK' to quit."
+		errortext = "Software for mining has been installed.\nAll miners were added to autostart script.\nTo see your hashrate run: sudo screen -r (miner)\nGood luck!\nPress 'OK' to quit."
 		dialrun = True
 class EthminerConfigWindow(Gtk.Window): # Ethminer configuration window
 	def __init__(self, parent):
@@ -402,7 +434,7 @@ class DialogWindow(Gtk.Dialog): # dialog window
 
 	def __init__(self, parent):
 		global errortext, error
-		Gtk.Dialog.__init__(self, errorhead, parent, 0, # header
+		Gtk.Dialog.__init__(self, error, parent, 0, # header
 		(Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
 		self.set_default_size(150, 100)

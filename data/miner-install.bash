@@ -102,3 +102,7 @@ chmod 777 $2
 chmod ugo+x $2
 cd
 fi
+if [ $1 = "--ethminer-autostart" ]; then
+grep -Ev "\SCRIPT=''$" ethminer > ethminer1
+cp ethminer /etc/init.d
+fi

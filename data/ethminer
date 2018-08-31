@@ -1,0 +1,76 @@
+#!/bin/bash
+#
+### BEGIN INIT INFO
+# Provides:        ethminer
+# Required-Start:  $local_fs $remote_fs
+# Required-Stop:   $local_fs $remote_fs
+# Default-Start:   5
+# Default-Stop:
+# Short-Description: Mining Ethminer
+### END INIT INFO
+#
+### BEGIN CHKCONFIG INFO
+# chkconfig: 2345 55 25
+# description: Mining Ethminer
+### END CHKCONFIG INFO
+ 
+NAME="ethminer"
+APPLICATION_PATH=""
+PID_FILE="$APPLICATION_PATH/file.pid"
+COMMAND="/usr/bin/screen -dmS ethm /bin/bash $APPLICATION_PATH/ethminer.bash"
+
+start() {
+    echo "Starting $NAME"
+    eval $COMMAND
+    PID=$(pgrep -f $NAME) 
+    echo $PID >> $PID_FILE
+    RETVAL=0
+}
+
+stop() {
+    if [ -f $PID_FILE ]; then
+        echo "Shutting down $NAME"
+        kill -9 $(cat $PID_FILE)
+        rm -f $PID_FILE
+        RETVAL=0
+    else
+        echo "$NAME is not running."
+        RETVAL=0
+    fi
+}
+
+restart() {
+    stop
+    start
+}
+
+status() {
+    echo `ps -ef` | grep -q "$APPLICATION_PATH"
+    if [ "$?" -eq "0" ]; then
+        echo "$NAME is running."
+        RETVAL=0
+    else
+        echo "$NAME is not running."
+        RETVAL=3
+    fi
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo "Usage: {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
