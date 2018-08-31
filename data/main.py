@@ -25,11 +25,17 @@ class MenuWindow(Gtk.Window):
 		self.buttonminer.connect("clicked", self.on_buttonminer_clicked)
 		box.pack_start(self.buttonminer, True, True, 0)
 
+		self.buttonamdoc = Gtk.Button(label="Разгон видеокарт AMD")
+		self.buttonamdoc.connect("clicked", self.on_buttonamdoc_clicked)
+		box.pack_start(self.buttonamdoc, True, True, 0)		
+		
 		self.buttonabout = Gtk.Button(label="О программе")
 		self.buttonabout.connect("clicked", self.on_abtdlg)
 		box.pack_start(self.buttonabout, True, True, 0)
 
 		self.add(box)
+	def on_buttonamdoc_clicked(self, button):
+		os.popen("./amd_oc.out")
 	def on_buttondriver_clicked(self, button):
 		os.popen("./driver_installer.out")
 	def on_buttonminer_clicked(self, button):
@@ -38,7 +44,7 @@ class MenuWindow(Gtk.Window):
 		about = Gtk.AboutDialog(self)
 		about.set_logo(GdkPixbuf.Pixbuf.new_from_file("gpu.png"))
 		about.set_program_name("FEMU - Free & Easy Mining on Ubuntu")
-		about.set_version("v0.1 beta")
+		about.set_version("v0.2 beta")
 		about.set_copyright("© arkdlite 2018")
 		about.set_comments("Эта программа предназначена для легкой и быстрой настройки майнинга на Ubuntu без консоли, делая систему дружелюбной для новичков-майнеров. Если она вам помогла, то вы можете отблагодарить автора, перечислив пожертвование на один из следующих адресов:\nBTC: 1DtJutLDmH1MzY7Ew36ziLPp3YNuwXpvfb\nDASH: XqMYsGQyLGzr76cQXd7LHD6VEi13xRnm47\nZEC: t1eFez4MmkQALbhEGSFLcLERCZT3MM7KFQB\nXMR: 421cec4uww4hRKZUrmbxRBhTPqRXmb6PCFcyuakwmdr3ThcanQtoqQCPHSAWC4PPZfjAN6tt5yx7rSQf25SyTKhdFcsBaWK")
 		about.run()

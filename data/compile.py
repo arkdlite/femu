@@ -21,3 +21,4 @@ def compile_file(pyfile):
 compile_file("main.py")
 compile_file("miner_installer.py")
 compile_file("driver_installer.py")
+compile_file("amd_oc.py")

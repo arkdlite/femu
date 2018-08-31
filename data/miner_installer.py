@@ -69,8 +69,25 @@ class ProgressThread(Thread): #класс, отвечающий за запус�
 			# наполнение скрипта запуска
 			work = "echo '#!/bin/bash' > %s" % desktop + "/ethminer.bash"
 			runcmd(work)
-			work = "echo '.~/miners/ethminer/build/ethminer/ethminer --farm-recheck 200 --tstart 45 %s -P %s+%s://%s@%s' >> %s" % (mode, stratumtype, ssl, ewallet, epool1, desktop + "/ethminer.bash")
+			work = "echo '%s/miners/ethminer/build/ethminer/ethminer --farm-recheck 200 --tstart 45 %s -P %s+%s://%s@%s' >> %s" % (desktop, mode, stratumtype, ssl, ewallet, epool1, desktop + "/ethminer.bash")
 			runcmd(work)
+
+			with open ('ethminer', 'r') as f:
+				old_data = f.read()
+			new_data = old_data.replace('$APPLICATION_PATH=""', '$APPLICATION_PATH="' + desktop + '"')
+			with open ('ethminer', 'w') as f:
+				f.write(new_data)
+			
+			work = 'cp ethminer /etc/init.d'
+			runcmd(work)
+			work = 'chmod +x /etc/init.d/ethminer'
+			runcmd(work)
+			work = 'update-rc.d ethminer defaults'
+			runcmd(work)
+			work = 'update-rc.d ethminer enable'
+			runcmd(work)			
+			
+			
 			progr = 1.0
 		if xmrig == True: # действия, если XMRig-AMD активирован
 			progr = 0.01
@@ -99,18 +116,34 @@ class ProgressThread(Thread): #класс, отвечающий за запус�
 			work = "echo '#!/bin/bash' > %s" % desktop + "/xmrig-amd.bash" # наполнение скрипта запуска
 			runcmd(work)	
 			if devfeeoff == True:
-				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 0 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
+				work = "echo '%s/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 0 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (desktop, algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
 			else:
-				work = "echo '.~/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 1 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
+				work = "echo '%s/miners/xmrig-amd/xmrig-amd%s -l xmrig.log --donate-level 1 --api-port 4444 -o %s -u %s -p x --variant 1 -k' >> %s" % (desktop, algo, xpool1, xwallet, desktop + "/xmrig-amd.bash")
 			runcmd(work)	# назначение скрипту прав доступа, чтобы пользователь мог его изменять и запускать			
 			work = "chmod 777 " + desktop + "/xmrig-amd.bash"
 			runcmd(work)
 			work = "chmod ugo+x " + desktop + "/xmrig-amd.bash"
 			runcmd(work)
+			
+			with open ('xmrig', 'r') as f:
+				old_data = f.read()
+			new_data = old_data.replace('$APPLICATION_PATH=""', '$APPLICATION_PATH="' + desktop + '"')
+			with open ('xmrig', 'w') as f:
+				f.write(new_data)
+			
+			work = 'cp xmrig /etc/init.d'
+			runcmd(work)
+			work = 'chmod +x /etc/init.d/xmrig'
+			runcmd(work)
+			work = 'update-rc.d xmrig defaults'
+			runcmd(work)
+			work = 'update-rc.d xmrig enable'
+			runcmd(work)						
+			
 			progr = 1.0
 		# выдача диалога о завершении установки
 		errorhead = "Успешно!"
-		errortext = "ПО для майнинга установлено.\nЖелаю добыть побольше монеток!\nНажми 'ОК', чтобы выйти."
+		errortext = "ПО для майнинга установлено.\nВсе майнеры добавлены в скрипт автозапуска.\nЖелаю добыть побольше монеток!\nНажми 'ОК', чтобы выйти."
 		dialrun = True
 class EthminerConfigWindow(Gtk.Window): # окно настройки Ethminer
 	def __init__(self, parent):
@@ -357,7 +390,7 @@ class XmrigConfigWindow(Gtk.Window): # окно настроек XMRig-AMD
 class DialogWindow(Gtk.Dialog): # диалоговое окно
 	def __init__(self, parent):
 		global errortext, error
-		Gtk.Dialog.__init__(self, errorhead, parent, 0, #заголовок окна
+		Gtk.Dialog.__init__(self, error, parent, 0, #заголовок окна
 		(Gtk.STOCK_OK, Gtk.ResponseType.OK))
 		self.set_default_size(150, 100)
 		label = Gtk.Label(errortext) #текст окна
