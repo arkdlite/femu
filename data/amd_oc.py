@@ -472,11 +472,11 @@ class InstallWindow(Gtk.Window):
 			quit()
 		return True
 
-Dialog("FEMU", "Getting GPU stats...", False)
-
 if amdfound is False:
 	Dialog("Error!", "AMD GPU not found!")
 	quit()
+
+Dialog("FEMU", "Getting GPU stats...", False)
 
 if not '4.17' in pp("uname -r").read():
 	install = InstallWindow()
