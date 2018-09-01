@@ -472,12 +472,6 @@ class InstallWindow(Gtk.Window):
 			quit()
 		return True
 
-if amdfound is False:
-	Dialog("Error!", "AMD GPU not found!")
-	quit()
-
-Dialog("FEMU", "Getting GPU stats...", False)
-
 if not '4.17' in pp("uname -r").read():
 	install = InstallWindow()
 	install.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -494,6 +488,10 @@ elif '4.17' in pp("uname -r").read() and not path.exists('/usr/src/OhGodATool') 
 	install.show_all()
 	Gtk.main()	
 else:
+	Dialog("FEMU", "Getting GPU stats...", False)
+	if amdfound is False:
+		Dialog("Ошибка!", "AMD GPU не найдены!")
+		quit()
 	print("test")
 	window = MainWindow()
 	window.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
