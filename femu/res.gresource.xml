@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gtk/Femu">
+    <file>glade/dialog.glade</file>
+    <file>glade/nvidia_oc_config.glade</file>
+    <file>glade/miner_config_window.glade</file>
+    <file>icons/icon.png</file>
+  </gresource>
+</gresources>
