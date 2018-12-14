@@ -140,7 +140,7 @@ class ProgressThread(Thread):  # class for scripts running
         if Params.xmrig is True:  # if XMRig-AMD activated
             InstallMinerWindow.progressbar.set_fraction(0.01)
             InstallMinerWindow.progressbar.set_text("Installing packages")
-            runcmd("apt install xmrig-amd-systemd -y")
+            runcmd("apt install xmrig-amd -y")
             InstallMinerWindow.progressbar.set_fraction(0.9)
             runcmd("touch /usr/bin/config.json")
             runcmd("ln -s /usr/bin/config.json /etc/miners/xmrig-amd.json")
