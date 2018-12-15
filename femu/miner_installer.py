@@ -273,12 +273,11 @@ class MainWindow(Gtk.Window):  # main window
         self.add(hbox)
 
     def on_ethminer_activated(self, switch, gparam):
-        global ethminer
         if switch.get_active():
-            ethminer = True
+            Params.ethminer = True
             self.button.set_sensitive(True)
         else:
-            ethminer = False
+            Params.ethminer = False
             self.button.set_sensitive(False)
 
     def on_ethconf_clicked(self, button):
