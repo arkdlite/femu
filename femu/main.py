@@ -68,10 +68,10 @@ class MenuWindow(Gtk.Window):
         NvidiaOC.run(self)  # run Nvidia OC window
 
     def on_buttondriver_clicked(self, button):
-        MinerInstaller.run(self)
+        DriverInstaller.run(self)
 
     def on_buttonminer_clicked(self, button):
-        DriverInstaller.run(self)
+        MinerInstaller.run(self)
 
     def on_abtdlg(self, button):
         about = Gtk.AboutDialog(self)

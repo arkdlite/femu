@@ -77,7 +77,7 @@ class InstallNvidiaWindow(Gtk.Window):
         box.set_homogeneous(False)
         self.add(box)
         label = Gtk.Label()
-        label.set_text("""The newest version of Params.nvidia driver will be added to
+        label.set_text("""The newest version of Nvidia driver will be added to
                 repositories list. Than the default Ubuntu tool will be
                 opened. To start installation please click 'Additional
                 drivers'. Next choose the newest version of Nvidia driver
@@ -215,10 +215,13 @@ class ProgressThread(Thread):  # install thread
 
         if Params.nvidia == True:  # if Params.nvidia selected
             Params.nvprogressbar.set_fraction(0.5)
-            os.system(Params.DIR + "/Params.nvidia-current-install.bash")
+            os.system(Params.DIR + "/nvidia-current-install.bash")
             os.popen("software-properties-gtk")
             Params.nvprogressbar.set_fraction(1.0)
             Gtk.main_quit()
+
+
+
 class DriverInstaller():
     Gio.Resource._register(config.res)
 
