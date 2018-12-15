@@ -134,7 +134,7 @@ class ProgressThread(Thread):  # class for scripts running
             runcmd("apt install ethminer-systemd -y")
             InstallMinerWindow.progressbar.set_fraction(0.9)
             runcmd("touch /etc/miners/ethminer.conf")
-            runcmd("echo '&s' > /etc/miners/ethminer.conf" % Params.eparams)
+            runcmd("echo '%s' > /etc/miners/ethminer.conf" % Params.eparams)
             InstallMinerWindow.progressbar.set_fraction(1.0)
 
         if Params.xmrig is True:  # if XMRig-AMD activated
@@ -144,7 +144,7 @@ class ProgressThread(Thread):  # class for scripts running
             InstallMinerWindow.progressbar.set_fraction(0.9)
             runcmd("touch /usr/bin/config.json")
             runcmd("ln -s /usr/bin/config.json /etc/miners/xmrig-amd.json")
-            runcmd("echo '&s' > /etc/miners/xmrig-amd.json" % Params.xparams)
+            runcmd("echo '%s' > /etc/miners/xmrig-amd.json" % Params.xparams)
             runcmd("systemctl enable xmrig-amd")
             InstallMinerWindow.progressbar.set_fraction(1.0)
 
