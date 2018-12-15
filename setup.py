@@ -19,6 +19,12 @@ setup(
     description="The mining setup utility",
     long_description=long_description,
     long_description_content_type="text/markdown",
+    package_data={
+                    '': ['nvidia-current-install.bash',
+                    'amdgpu-pro-install.bash',
+                    'miner-install.bash'],
+                 },
+    include_package_data=True,
     url="https://github.com/arkdlite/femu",
     scripts=['femu/femu'],
     py_modules=[
