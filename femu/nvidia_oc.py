@@ -313,20 +313,6 @@ class NvidiaOC():
 
     gpu = None
     gpus = {}
-    count = int(
-        pp(
-            "nvidia-smi --id=0 --query-gpu=count --format=csv,noheader"
-        ).read())
-    for i in range(0, count):
-        gpus[str(i)] = {
-                        "fanspeed": GetParam(i, "fan"),
-                        "powerlimit": GetParam(i, "pl"),
-                        "coreclock": GetParam(i, "coreclock"),
-                        "memclock": GetParam(i, "memclock")
-                        }
-
-    for i in gpus:
-        gpu_selector.append_text("GPU " + i)
 
     dialog = dialogbuilder.get_object("dialog")
     dialog.set_transient_for(mainwindow)
@@ -338,4 +324,19 @@ class NvidiaOC():
     builder.connect_signals(Signal())
     dialogbuilder.connect_signals(Signal())
 
-    def run(self): NvidiaOC.mainwindow.show_all()
+    def run(self):
+        count = int(
+            pp(
+                "nvidia-smi --id=0 --query-gpu=count --format=csv,noheader"
+            ).read())
+        for i in range(0, count):
+            NvidiaOC.gpus[str(i)] = {
+                                        "fanspeed": GetParam(i, "fan"),
+                                        "powerlimit": GetParam(i, "pl"),
+                                        "coreclock": GetParam(i, "coreclock"),
+                                        "memclock": GetParam(i, "memclock")
+                                    }
+
+        for i in gpus:
+            NvidiaOC.gpu_selector.append_text("GPU " + i)
+        NvidiaOC.mainwindow.show_all()

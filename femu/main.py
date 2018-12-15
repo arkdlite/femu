@@ -22,14 +22,14 @@
 import sys
 import gi
 
+gi.require_version('Gtk', '3.0')
+
 from gi.repository import Gtk, GdkPixbuf, Gio
 from os import popen, path
 from .nvidia_oc import NvidiaOC
 from .femu_config import config
 from .miner_installer import MinerInstaller
 from .driver_installer import DriverInstaller
-
-gi.require_version('Gtk', '3.0')
 
 Gio.Resource._register(config.res)  # register gresource file with icon
 

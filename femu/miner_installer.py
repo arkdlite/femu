@@ -80,7 +80,7 @@ class Params():
     progr = 0.0  # variable for progressbar percentage
     progrtext = ""  # variable for progressbar text
     dialrun = False  # variable for dialog running
-    builder = Gtk.Builder.new_from_file("glade/miner_config_window.glade")
+    builder = Gtk.Builder.new_from_resource("/org/gtk/Femu/glade/miner_config_window.glade")
 
 
 def runcmd(cmd):
